@@ -1,0 +1,9 @@
+.DS_Store
+.git
+.env
+
+# dependencies
+node_modules
+
+# build output
+.next
