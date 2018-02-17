@@ -2,6 +2,7 @@
   "name": "if-eth",
   "private": true,
   "dependencies": {
+    "auth0-js": "^9.2.3",
     "autoprefixer": "^7.2.4",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-wrap-in-js": "^1.1.1",
