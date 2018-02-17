@@ -13,17 +13,31 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h1>Dashboard</h1>
-        <NewSubscription create={this.props.createSubscription} />
+        <NewSubscription onSubmit={this.props.createSubscription} />
         <SubscriptionList items={this.props.subscriptions} />
       </div>
     );
   }
 }
 
+const formDataToParams = data => {
+  const params = {};
+  for (const key in data) {
+    if (key == "logic") {
+      params[key] = data[key].reduce((result, item) => {
+        result.push(item.conditions);
+        return result;
+      }, []);
+    } else {
+      params[key] = data[key];
+    }
+  }
+  return params;
+}
 const mapStateToProps = (state) => ({ subscriptions: objectToArray(state.entities.subscriptions) });
 const mapDispatchToProps = (dispatch) => ({
   fetchSubscriptions: () => dispatch(fetchCollection('subscriptions')),
-  createSubscription: (data) => dispatch(createRecord('subscriptions', data)),
+  createSubscription: (data) => dispatch(createRecord('subscriptions', formDataToParams(data))),
 });
 
 Dashboard = withRedux(makeStore, mapStateToProps, mapDispatchToProps)(Dashboard);

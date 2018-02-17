@@ -28,6 +28,9 @@ const makeHandleRecordCreate = ({ dispatch, getState, collectionName }) => {
   return (record) => {
     const collection = { [record.id]: record };
     dispatch(syncEntities(collectionName, collection));
+    dispatch({
+      type: 'NEW_SUBSCRIPTION_SUCCESS',
+    })
   }
 }
 
