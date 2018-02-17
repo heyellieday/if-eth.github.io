@@ -1,34 +1,26 @@
-import React from 'react';
-import Auth from '../utilities/auth.js';
+import withRedux from "next-redux-wrapper";
+import { makeAuthenticatedRequest } from '../utilities/api';
+import makeStore from '../utilities/makeStore';
+import objectToArray from '../utilities/objectToArray';
 
-const auth = new Auth();
-
-export default class Dashboard extends React.Component {
-  state = {
-      subscriptions: [],
-  }
-
+class Dashboard extends React.Component {
   componentDidMount() {
-    fetch("https://9sf3re3thg.execute-api.us-east-1.amazonaws.com/dev/subscriptions", {
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${auth.getAccessToken()}`
-      },
-    })
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(res.statusText);
-      }
-      return res.json();
-    })
-    .then(subscriptions => this.setState({ subscriptions }));
+    makeAuthenticatedRequest('subscriptions')
+    .then(subscriptions => this.props.setSubscriptions({ subscriptions }));
   }
   render() {
     return (
       <div>
         <h1>Dashboard</h1>
-        {this.state.subscriptions.map(subscription => (<h4 key={subscription.id}>{subscription.name}</h4>))}
+        {this.props.subscriptions.map(subscription => (<h4 key={subscription.id}>{subscription.name}</h4>))}
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({ subscriptions: objectToArray(state.entities.subscriptions) });
+const mapDispatchToProps = (dispatch) => ({ setSubscriptions: console.log });
+
+Dashboard = withRedux(makeStore, mapStateToProps, mapDispatchToProps)(Dashboard);
+
+export default Dashboard;

@@ -56,3 +56,7 @@ export default class Auth {
     return localStorage.getItem('id_token');
   }
 }
+
+const auth = new Auth();
+
+export { auth };
