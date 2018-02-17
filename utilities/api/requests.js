@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { auth } from './auth';
+import { auth } from '../auth';
 
 const makeBaseRequest = () => {
   return axios.create({
@@ -8,7 +8,14 @@ const makeBaseRequest = () => {
   });
 };
 
-export const makeAuthenticatedRequest = (path) => {
+const fetchWithAuth = (path) => {
   const baseRequest = makeBaseRequest();
   return baseRequest.get(path).then(response => (response.data));
 };
+
+const createWithAuth = (path, data) => {
+  const baseRequest = makeBaseRequest();
+  return baseRequest.post(path, data).then(response => (response.data));
+};
+
+export { fetchWithAuth, createWithAuth };
