@@ -1,11 +1,15 @@
+import Card from 'grommet/components/Card';
+
 export default ({ subscription }) => {
   return (
     <div>
-      <p>{subscription.id}</p>
-      <p>{subscription.name}</p>
-      <p>{subscription.webhookUrl}</p>
-      <pre>{JSON.stringify(subscription.logic)}</pre>
-      -----------------------------------------------
+      <Card
+        label={subscription.webhookUrl}
+        heading={subscription.name}
+        description={`Created At: ${subscription.timestamp}`}
+      >
+        content
+      </Card>
     </div>
   );
 }

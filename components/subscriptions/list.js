@@ -1,9 +1,19 @@
 import SubscriptionItem from './item';
+import Tiles from 'grommet/components/Tiles';
+import Tile from 'grommet/components/Tile';
 
-export default ({ items }) => {
+export default ({ items, style }) => {
   return (
-    <div>
-      {items.map(subscription => <SubscriptionItem key={subscription.id} subscription={subscription} />)}
-    </div>
+    <Tiles>
+      {
+        items.map(subscription => {
+          return (
+            <Tile>
+              <SubscriptionItem key={subscription.id} subscription={subscription} />
+            </Tile>
+          );
+        })
+      }
+    </Tiles>
   );
 }
