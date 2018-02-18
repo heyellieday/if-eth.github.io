@@ -4,7 +4,6 @@ import objectToArray from '../../utilities/objectToArray';
 import { fetchCollection, createRecord } from '../../utilities/action-creators';
 import SubscriptionList from '../../components/subscriptions/list';
 import NewSubscription from '../../components/subscriptions/new';
-import Columns from 'grommet/components/Columns';
 
 class IndexPage extends React.Component {
   componentDidMount() {

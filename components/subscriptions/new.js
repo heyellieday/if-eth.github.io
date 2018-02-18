@@ -18,7 +18,6 @@ let NewSubscription = props => {
         {fields.map((condition, index) => {
           const inputStyle = {
             width: "35%",
-            float: 'left',
           }
           return (<div key={index}>
             <h4>
